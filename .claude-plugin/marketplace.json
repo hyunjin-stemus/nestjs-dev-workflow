@@ -1,0 +1,15 @@
+{
+  "name": "nestjs-dev-workflow",
+  "owner": {
+    "name": "hyunjin-stemus"
+  },
+  "plugins": [
+    {
+      "name": "nestjs-dev-workflow",
+      "source": "./",
+      "description": "NestJS + Prisma 7 backend development workflow: agents (database reviewer, ERD architect, NestJS architect, PR reviewer, PRD writer, Docker manager) + cycle commands (task-start, task-implement, task-ship) + coding rules",
+      "category": "development",
+      "tags": ["nestjs", "prisma", "typescript", "backend", "workflow", "taskmaster"]
+    }
+  ]
+}
