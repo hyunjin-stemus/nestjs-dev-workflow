@@ -142,3 +142,15 @@ task-master parse-prd → analyze-complexity → expand --all
     ↓ (모든 task 완료 후)
 /cycle:cycle-finish        → 회고 문서화
 ```
+
+---
+
+## 빠른 설치 (curl)
+
+claude plugin 명령어가 없어도 설치 가능:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/hyunjin-stemus/nestjs-dev-workflow/main/install.sh | bash
+```
+
+Claude Code를 재시작하면 적용됩니다.
