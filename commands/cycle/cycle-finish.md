@@ -51,7 +51,34 @@ description: "사이클 완료 — 회고 문서화 및 다음 사이클 준비"
 
 4. **Claude 메모리 저장** — 이번 사이클에서 새롭게 발견한 프로젝트 컨텍스트(기술 결정, 팀 컨벤션 등)를 메모리에 저장한다.
 
-5. **사용자에게 보고** — 다음을 안내한다.
+5. **develop → main PR 생성** — 사이클의 모든 변경이 develop에 병합된 상태에서 main으로 합치는 PR을 생성하고 사용자에게 컨펌을 요청한다.
+
+   ```bash
+   git checkout develop
+   git pull origin develop
+   gh pr create \
+     --base main \
+     --head develop \
+     --title "release: 사이클 N 완료" \
+     --body "$(cat <<'EOF'
+   ## 사이클 요약
+   <docs/REQUIREMENT.md 핵심 목표 2-3줄>
+
+   ## 완료된 Tasks
+   <task-master list 결과 요약>
+
+   ## 주요 변경 사항
+   - <이번 사이클에서 추가/변경된 주요 내용>
+
+   🤖 Generated with [Claude Code](https://claude.com/claude-code)
+   EOF
+   )"
+   ```
+
+   PR URL을 사용자에게 알리고 **병합 여부를 확인한다. 사용자 명시적 컨펌 없이 병합하지 않는다.**
+
+6. **사용자에게 보고** — 다음을 안내한다.
    - 완료된 사이클 요약
    - `docs/PROJECT_HISTORY.md` 업데이트 위치
+   - develop → main PR 링크
    - 새 사이클을 시작하려면 `docs/REQUIREMENT.md`를 업데이트하고 `/prd-from-requirement`를 호출한다.

@@ -39,6 +39,18 @@ description: "PRD 생성 및 task 분할 — docs/REQUIREMENT.md → .taskmaster
    task-master expand --all --research
    ```
 
-6. 완료 후 사용자에게 다음을 안내한다.
+6. **develop 브랜치 준비** — task 분할이 완료된 시점에 develop 브랜치를 생성하거나 체크아웃한다.
+
+   ```bash
+   git fetch origin
+   # develop 브랜치가 이미 있으면 체크아웃, 없으면 main 기반으로 생성
+   git checkout develop 2>/dev/null || git checkout -b develop main
+   git push -u origin develop 2>/dev/null || true
+   ```
+
+   사용자에게 현재 브랜치가 `develop`임을 확인시킨다.
+
+7. 완료 후 사용자에게 다음을 안내한다.
    - 생성된 task 수
+   - 현재 브랜치: `develop` (모든 feature 브랜치는 이 브랜치 기반으로 생성됨)
    - 다음 작업 시작을 위해 `/task-start` 또는 `/task-start <id>` 호출 안내
