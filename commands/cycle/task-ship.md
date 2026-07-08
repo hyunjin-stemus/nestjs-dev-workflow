@@ -4,7 +4,7 @@ description: "task 배포 — 커밋 → PR → 리뷰 → 병합 → API.md →
 
 # task 배포 — 커밋 → PR → 리뷰 → 병합 → API.md → done
 
-커밋부터 PR 생성, pr-diff-reviewer 리뷰, 병합, API.md 업데이트, task done 처리까지 진행한다.
+커밋부터 PR 생성, 공식 code-review 스킬 리뷰, 병합, API.md 업데이트, task done 처리까지 진행한다.
 
 ## Arguments
 
@@ -75,8 +75,26 @@ description: "task 배포 — 커밋 → PR → 리뷰 → 병합 → API.md →
    )"
    ```
 
-5. **PR 리뷰** — `pr-diff-reviewer` 에이전트를 호출한다.
-   - PR URL 또는 PR 번호를 에이전트에 전달한다.
+5. **PR 리뷰** — 커스텀 서브에이전트 대신 **클로드 코드 공식 `code-review` 스킬**을 사용한다.
+   - 현재 브랜치가 곧 PR 브랜치이므로, `Skill` 도구로 `code-review` 스킬을 호출해 `develop` 대비 diff를 리뷰한다:
+
+     ```
+     Skill({ skill: "code-review", args: "high --comment" })
+     ```
+
+   - effort는 기본 `high`를 사용한다(더 폭넓은 커버리지 필요 시 `xhigh`/`max`, 더 빠른 확인이면 `low`/`medium`).
+   - `ultra`(멀티에이전트 클라우드 리뷰)는 **사용자가 명시적으로 요청한 경우에만** 사용한다 — 과금이 발생하고 직접 트리거할 수 없으므로 이 스킬 안에서 자동으로 선택하지 않는다.
+   - `--comment` 플래그를 사용하면 스킬이 PR에 인라인 코멘트를 자동으로 게시한다 — 별도 `gh pr comment` 호출은 생략한다. `--comment` 없이 실행했다면 리뷰 결과 전문을 아래처럼 직접 게시한다:
+
+     ```bash
+     gh pr comment <PR번호> --body "$(cat <<'EOF'
+     ## 🤖 PR Code Review
+
+     <리뷰 결과 전문>
+     EOF
+     )"
+     ```
+
    - 리뷰 완료 후 아래 형식으로 **모든 리뷰 항목을 빠짐없이 정리**해서 사용자에게 보여준다:
 
      **[PR 코드 리뷰 결과 전체 목록]**
@@ -96,17 +114,6 @@ description: "task 배포 — 커밋 → PR → 리뷰 → 병합 → API.md →
 
    - **컨펌 대기**: 위 목록을 보여준 후 반드시 사용자에게 "어떤 항목을 반영할까요?" 확인을 받는다.
      컨펌 없이 코드를 수정하지 않는다.
-
-   - 리뷰 결과를 PR 댓글로도 게시한다:
-
-     ```bash
-     gh pr comment <PR번호> --body "$(cat <<'EOF'
-     ## 🤖 PR Diff Review
-
-     <리뷰 결과 전문>
-     EOF
-     )"
-     ```
 
 6. **PR 피드백 반영** — 컨펌된 항목만 수정한 후 추가 커밋을 생성하고 푸시한다. 컨펌되지 않은 항목은 건드리지 않는다.
 
