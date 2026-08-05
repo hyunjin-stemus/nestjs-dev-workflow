@@ -108,16 +108,23 @@ description: "task 배포 — 커밋 → PR → 리뷰 → 병합 → API.md →
 10. **`docs/API.md` 업데이트** — 이번 task에서 추가/변경된 엔드포인트를 기록한다.
     - API 변경이 없는 task(내부 리팩터링 등)는 "API 변경 없음"으로 명시.
 
-11. **task done 처리**:
+11. **Notion API 명세서 동기화** (해당 시) — 프로젝트 `CLAUDE.md`에 Notion API 명세서 링크가
+    기록돼 있는지 확인한다.
+    - 링크가 있으면 `syncing-notion-api-docs` 스킬을 사용해서 이번 task로 `docs/API.md`에
+      반영한 변경 사항(신규 엔드포인트, 필드 추가/제거, 제거된 엔드포인트 등)을 Notion에도
+      동일하게 반영한다.
+    - 링크가 없으면 이 단계는 건너뛴다.
+
+12. **task done 처리**:
 
     ```bash
     task-master set-status --id=$ARGUMENTS --status=done
     ```
 
-12. **task-master update-subtask** — 구현 중 발견한 중요 사항을 subtask에 기록한다.
+13. **task-master update-subtask** — 구현 중 발견한 중요 사항을 subtask에 기록한다.
 
     ```bash
     task-master update-subtask --id=$ARGUMENTS --prompt="구현 완료. 주요 결정 및 참고 사항: ..."
     ```
 
-13. 사용자에게 안내: 다음 task를 진행하려면 `/task-start`를 호출하거나, 모든 task가 완료되면 `/cycle-finish`를 호출한다.
+14. 사용자에게 안내: 다음 task를 진행하려면 `/task-start`를 호출하거나, 모든 task가 완료되면 `/cycle-finish`를 호출한다.
