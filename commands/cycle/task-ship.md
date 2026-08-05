@@ -117,23 +117,30 @@ description: "task 배포 — 커밋 → PR → 리뷰 → 병합 → API.md →
 
 6. **PR 피드백 반영** — 컨펌된 항목만 수정한 후 추가 커밋을 생성하고 푸시한다. 컨펌되지 않은 항목은 건드리지 않는다.
 
-7. **병합 컨펌 대기** — 사용자에게 병합 여부를 확인한다. **사용자 명시적 컨펌 없이 병합하지 않는다.**
+7. **`docs/API.md` 업데이트** — 병합 요청 전, 이번 task에서 추가/변경된 엔드포인트를 기록한다.
+   - API 변경이 없는 task(내부 리팩터링 등)는 "API 변경 없음"으로 명시.
+   - 변경 사항을 커밋하고 푸시해 **PR에 포함시킨다** (병합 후 develop에 별도로 반영하지 않는다 — 리뷰 대상에서 누락되므로 반드시 병합 전에 PR 브랜치에 포함).
 
-8. **병합** (사용자 컨펌 후):
+   ```bash
+   git add docs/API.md
+   git commit -m "docs: API.md 업데이트 (task <id>)"
+   git push
+   ```
+
+8. **병합 컨펌 대기** — 사용자에게 병합 여부를 확인한다. **사용자 명시적 컨펌 없이 병합하지 않는다.**
+
+9. **병합** (사용자 컨펌 후):
 
    ```bash
    gh pr merge <PR번호> --squash
    ```
 
-9. **로컬 develop 브랜치 동기화**:
+10. **로컬 develop 브랜치 동기화**:
 
-   ```bash
-   git checkout develop
-   git pull origin develop
-   ```
-
-10. **`docs/API.md` 업데이트** — 이번 task에서 추가/변경된 엔드포인트를 기록한다.
-    - API 변경이 없는 task(내부 리팩터링 등)는 "API 변경 없음"으로 명시.
+    ```bash
+    git checkout develop
+    git pull origin develop
+    ```
 
 11. **task done 처리**:
 
