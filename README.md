@@ -19,6 +19,12 @@ Task Master AI 기반 개발 사이클과 코드 리뷰 에이전트, 아키텍�
 | `prd-writer` | REQUIREMENT.md → PRD(.taskmaster/docs/prd.md) 변환 | Task Master 작업 시작 전 |
 | `docker-container-manager` | Docker 컨테이너 생성/관리 | 컨테이너 관련 요청 |
 
+### Skills (스킬)
+
+| 이름 | 역할 | 트리거 |
+|------|------|--------|
+| `nestjs-stemus-setup` | `nest new` 이후 Stemus 표준 공통 레이어(응답 래퍼, 로거, Prisma+Redis, JWT Auth, Rate Limiting, ChannelTalk/S3 어댑터, Health Check 등) 전체 세팅 | 새 백엔드 레포 시작, "NestJS 프로젝트 세팅" 등 요청 시 |
+
 ### Slash Commands (슬래시 커맨드)
 
 Task Master AI 기반 개발 사이클:
