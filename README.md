@@ -71,6 +71,16 @@ claude plugin marketplace add /path/to/nestjs-dev-workflow --name nestjs-local
 claude plugin install nestjs-dev-workflow@nestjs-local
 ```
 
+### 3. 설치 반영
+
+`agents/`, `commands/` 등은 설치 중인 세션에 바로 반영되지 않는다. 설치 후 반드시 아래 중 하나를 실행한다:
+
+```bash
+/reload-plugins
+```
+
+또는 Claude Code를 완전히 재시작한다. 실행하지 않으면 서브에이전트가 목록에 나타나지 않거나 슬래시 커맨드에 `nestjs-dev-workflow:` 네임스페이스가 붙지 않는다.
+
 ---
 
 ## 설치 후 프로젝트 설정
@@ -148,15 +158,3 @@ task-master parse-prd → analyze-complexity → expand --all
     ↓ (모든 task 완료 후)
 /cycle:cycle-finish        → 회고 문서화
 ```
-
----
-
-## 빠른 설치 (curl)
-
-claude plugin 명령어가 없어도 설치 가능:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/hyunjin-stemus/nestjs-dev-workflow/main/install.sh | bash
-```
-
-Claude Code를 재시작하면 적용됩니다.
