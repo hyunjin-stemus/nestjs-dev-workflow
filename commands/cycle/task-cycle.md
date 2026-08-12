@@ -240,13 +240,21 @@ git checkout develop
 git pull origin develop
 ```
 
-### 16. task done 처리
+### 16. Notion API 명세서 동기화 (해당 시)
+
+프로젝트 `CLAUDE.md`에 Notion API 명세서 링크가 기록돼 있는지 확인한다.
+
+- 링크가 있으면 `syncing-notion-api-docs` 스킬을 사용해서 이번 task로 `docs/API.md`에 반영한 변경 사항(신규 엔드포인트, 필드 추가/제거, 제거된 엔드포인트 등)을 Notion에도 동일하게 반영한다.
+- 링크가 없으면 이 단계는 건너뛴다.
+- **아이콘 규칙**: Notion "기능 명세서(BE)" 데이터베이스에서 신규 항목을 추가하거나 기존 항목의 아이콘이 비어 있으면, `기능 명세`(title) 아이콘은 **도메인(그룹)별로 서로 다른 색상**을 사용한다. 같은 도메인 내 모든 항목은 동일한 색상으로 통일하고, 다른 도메인과는 구분되는 색상을 사용한다 (예: `notification` 도메인 → 🔴, `auth` → 🟡, `payment` → 🔵 등 프로젝트 내 기존 도메인 색상 매핑을 우선 따르고, 없으면 새로 정해서 일관되게 적용). Notion 공개 API로는 기본 제공 도형 아이콘(`circle-dot` 등)을 안정적으로 설정할 수 없으므로(값은 저장되나 렌더링되지 않는 것이 확인됨) 색상 원형 이모지(🔴🟠🟡🟢🔵🟣 등)로 대체한다.
+
+### 17. task done 처리
 
 ```bash
 task-master set-status --id=$ARGUMENTS --status=done
 ```
 
-### 17. task-master update-subtask
+### 18. task-master update-subtask
 
 구현 중 발견한 중요 사항을 subtask에 기록한다.
 
@@ -254,7 +262,7 @@ task-master set-status --id=$ARGUMENTS --status=done
 task-master update-subtask --id=$ARGUMENTS --prompt="구현 완료. 주요 결정 및 참고 사항: ..."
 ```
 
-### 18. 다음 안내
+### 19. 다음 안내
 
 사용자에게 안내한다.
 
