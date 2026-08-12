@@ -53,4 +53,4 @@ description: "PRD 생성 및 task 분할 — docs/REQUIREMENT.md → .taskmaster
 7. 완료 후 사용자에게 다음을 안내한다.
    - 생성된 task 수
    - 현재 브랜치: `develop` (모든 feature 브랜치는 이 브랜치 기반으로 생성됨)
-   - 다음 작업 시작을 위해 `/task-start` 또는 `/task-start <id>` 호출 안내
+   - 다음 작업 시작을 위해 `/task-cycle` 또는 `/task-cycle <id>` 호출 안내

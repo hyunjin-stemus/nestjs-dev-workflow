@@ -31,9 +31,7 @@ Task Master AI 기반 개발 사이클:
 
 | 커맨드 | 역할 |
 |--------|------|
-| `/cycle:task-start [task-id]` | task 조회 → plan mode 진입 → 사용자 컨펌 |
-| `/cycle:task-implement [task-id]` | 브랜치 생성 → TDD → 구현 → 타입체크 → 린트 → 코드리뷰 |
-| `/cycle:task-ship [task-id]` | 커밋 → PR → 리뷰 → 병합 → API.md → done |
+| `/cycle:task-cycle [task-id]` | task 조회 → plan(애매하면 확인) → 구현 → 코드리뷰(자동 반영 + 애매한 것만 확인) → PR 생성 → PR 리뷰(자동 반영 + 애매한 것만 확인) → 병합 컨펌 → API.md → done |
 | `/cycle:cycle-finish` | 사이클 완료 회고 문서화 |
 | `/cycle:prd-from-requirement` | docs/REQUIREMENT.md → .taskmaster/docs/prd.md 변환 |
 
@@ -142,9 +140,8 @@ claude plugin install task-master-ai@claude-plugins-official
     ↓
 task-master parse-prd → analyze-complexity → expand --all
     ↓ (각 task에 대해 반복)
-/cycle:task-start [id]    → plan 수립 + 사용자 컨펌
-/cycle:task-implement [id] → TDD + 구현 + 타입체크 + 린트 + 코드리뷰
-/cycle:task-ship [id]      → 커밋 + PR + 리뷰 + 병합 + done
+/cycle:task-cycle [id]     → plan(애매하면 확인) + 구현 + 코드리뷰(자동 반영/애매한 것만 확인)
+                             + PR 생성 + PR 리뷰(자동 반영/애매한 것만 확인) + 병합 컨펌 + done
     ↓ (모든 task 완료 후)
 /cycle:cycle-finish        → 회고 문서화
 ```
